@@ -16,7 +16,17 @@ const createQuestions = async (req, res) => {
 
 const getQuestions = async (req, res) => {
   try {
-    const questions = await Questions.find();
+    let { page, size } = req.query;
+    if (!page) {
+      page = 1;
+    }
+    if (!size) {
+      size = 10;
+    }
+    const limit = parseInt(size);
+    const skip = (page - 1) * size;
+
+    const questions = await Questions.find().limit(limit).skip(skip);
     if (!questions.length > 0) return res.json({ error: "Not Questions" });
 
     return res.status(200).json({ questions });
@@ -74,10 +84,37 @@ const removeQuestionsById = async (req, res) => {
   }
 };
 
+const filtering = async (req, res) => {
+  try {
+    const objFiltering = await req.query;
+    const filters = await Questions.find(objFiltering);
+    return res.status(200).json({ filters });
+  } catch (error) {
+    return res.status(500).json({ error: "Server Error" });
+  }
+};
+
+const counter = async (req, res) => {
+  try {
+    const total = await Questions.find().count();
+    return res.status(200).json({ total });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Server Error" });
+  }
+};
+
+const test = (req, res) => {
+  return res.json({ ok: true });
+};
+
 export {
   createQuestions,
   getQuestions,
   getQuestionsById,
   updateQuestionsById,
   removeQuestionsById,
+  filtering,
+  counter,
+  test,
 };

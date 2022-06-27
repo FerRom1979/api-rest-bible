@@ -10,6 +10,7 @@ const validatorQuestion = [
   check("type").exists().notEmpty().trim().isString(),
   check("difficulty").exists().notEmpty().trim().isString(),
   check("nameBook").exists().notEmpty().trim().isString(),
+  check("image").exists().notEmpty().trim().isString(),
 
   (req, res, next) => {
     return validateResults(req, res, next);
