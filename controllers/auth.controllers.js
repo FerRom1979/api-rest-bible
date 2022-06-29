@@ -66,7 +66,7 @@ const infoUser = async (req, res) => {
     const user = await User.findById(req.uid).lean();
     return res.json({ user });
   } catch (error) {
-    return res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server Error" });
   }
 };
 
