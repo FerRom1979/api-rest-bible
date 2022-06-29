@@ -10,7 +10,7 @@ import { checkRol } from "../middlewares/rol.js";
 
 const router = Router();
 
-router.get("/", authProtected, checkRol(["admin"]), getUsers);
+router.get("/", authProtected, checkRol(["user"]), getUsers);
 
 router.get("/:id", authProtected, getUser);
 

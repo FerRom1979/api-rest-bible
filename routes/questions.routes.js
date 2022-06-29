@@ -22,6 +22,7 @@ router.post(
   validatorQuestion,
   createQuestions
 );
+
 router.get("/", authProtected, getQuestions);
 
 router.get("/counter", authProtected, counter);

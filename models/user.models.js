@@ -38,6 +38,20 @@ const userSchema = new Schema({
     type: ["user", "admin"],
     default: "user",
   },
+  tokenConfirm: {
+    type: String,
+    default: null,
+  },
+  accountConfirm: {
+    type: Boolean,
+    default: false,
+  },
+  file: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Upload",
+    },
+  ],
 });
 
 userSchema.pre("save", async function (next) {

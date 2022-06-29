@@ -1,4 +1,8 @@
 import multer from "multer";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -14,4 +18,5 @@ const storage = multer.diskStorage({
 
 export const uploadMiddleware = multer({
   storage,
+  limits: { fileSize: 10 },
 });

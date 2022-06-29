@@ -21,6 +21,21 @@ const signup = async (req, res) => {
   }
 };
 
+const accountConfirm = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const user = await User.findOne({ email: 2222 });
+    console.log({ user });
+    if (!user) {
+      return res.status(400).json({ error: "This user already exists" });
+    }
+
+    return res.status(200).json({ token });
+  } catch (error) {
+    return res.status(500).json({ error: "Server Error" });
+  }
+};
+
 const login = async (req, res) => {
   try {
     const { email, password } = matchedData(req);
@@ -70,4 +85,4 @@ const logout = (req, res) => {
   res.json({ logout: "ok" });
 };
 
-export { login, signup, infoUser, authRefreshToken, logout };
+export { login, signup, infoUser, authRefreshToken, logout, accountConfirm };

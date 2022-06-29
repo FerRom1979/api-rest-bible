@@ -1,11 +1,12 @@
 import express from "express";
 import "dotenv/config";
 import "./database/connected.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import authRouter from "./routes/auth.routes.js";
 import questionsRouter from "./routes/questions.routes.js";
 import usersRoutes from "./routes/users.routes.js";
-import cookieParser from "cookie-parser";
-import cors from "cors";
+import uploadRouter from "./routes/upload.routes.js";
 
 const app = express();
 
@@ -24,10 +25,13 @@ const whiteList = [process.env.ORIGIN1, process.env.ORIGIN2];
 
 app.use(cors());
 
+app.use(express.static("storage"));
+
 app.use(express.json());
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/questions", questionsRouter);
 app.use("/api/v1/users", usersRoutes);
+app.use("/api/v1/upload", uploadRouter);
 
 app.use(cookieParser());
 const PORT = process.env.PORT || 4000;

@@ -5,6 +5,7 @@ import {
   signup,
   authRefreshToken,
   logout,
+  accountConfirm,
 } from "../controllers/auth.controllers.js";
 import { authProtected } from "../middlewares/authProtected.js";
 import { requireRefreshToken } from "../middlewares/requireRefreshToken.js";
@@ -18,6 +19,8 @@ const router = Router();
 router.post("/login", validatorLogin, login);
 
 router.post("/signup", validatorRegister, signup);
+
+router.get("/account-confirm/:token", accountConfirm);
 
 router.get("/protected", authProtected, infoUser);
 
